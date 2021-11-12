@@ -58,6 +58,8 @@ namespace IdentityServerHost.Quickstart.UI
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)
         {
+            //var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+            //var tenant = context.Tenant;
             // build a model so we know what to show on the login page
             var vm = await BuildLoginViewModelAsync(returnUrl);
 

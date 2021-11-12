@@ -51,6 +51,14 @@ namespace Blazor
                 b.UsePkce = true;
                 b.Scope.Add("confArchApi.basicAccess");
                 b.SaveTokens = true;
+                //b.Events = new OpenIdConnectEvents
+                //{
+                //    OnRedirectToIdentityProvider = context =>
+                //    {
+                //        context.ProtocolMessage.SetParameter("acr_values", "tenant:blue");
+                //        return Task.CompletedTask;
+                //    }
+                //};
             });
         }
 

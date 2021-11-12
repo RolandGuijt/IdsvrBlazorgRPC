@@ -3,6 +3,7 @@
 
 
 using Duende.IdentityServer;
+using IdentityProvider.IdpInMem;
 using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,10 +46,9 @@ namespace Part2_TokenService
             builder.AddInMemoryApiScopes(Config.ApiScopes);
             builder.AddInMemoryApiResources(Config.ApiResources);
             builder.AddInMemoryClients(Config.Clients);
-         
-
-            // not recommended for production - you need to store your key material somewhere secure
-            builder.AddDeveloperSigningCredential();
+            builder.AddProfileService<ConfArchProfileService>();
+            
+            // Automatic key management in IdentityServer 5+
 
             services.AddAuthentication()
                 .AddGoogle(options =>
@@ -58,8 +58,8 @@ namespace Part2_TokenService
                     // register your IdentityServer with Google at https://console.developers.google.com
                     // enable the Google+ API
                     // set the redirect URI to https://localhost:5001/signin-google
-                    options.ClientId = "copy client ID from Google here";
-                    options.ClientSecret = "copy client secret from Google here";
+                    options.ClientId = "686977813024-1pabqkfoar3btu6tsh7puhu3pogcivi0.apps.googleusercontent.com";
+                    options.ClientSecret = "VutGrq8bRdIlB4X13vxiWWwj";
                 });
         }
 
