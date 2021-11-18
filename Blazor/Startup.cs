@@ -49,6 +49,7 @@ namespace Blazor
 
                 b.ResponseType = "code";
                 b.UsePkce = true;
+                b.Scope.Add("company");
                 b.Scope.Add("confArchApi.basicAccess");
                 b.SaveTokens = true;
                 //b.Events = new OpenIdConnectEvents

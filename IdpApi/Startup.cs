@@ -3,6 +3,7 @@
 
 
 using Duende.IdentityServer;
+using IdentityProvider;
 using IdentityProvider.IdpInMem;
 using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
@@ -46,21 +47,23 @@ namespace Part2_TokenService
             builder.AddInMemoryApiScopes(Config.ApiScopes);
             builder.AddInMemoryApiResources(Config.ApiResources);
             builder.AddInMemoryClients(Config.Clients);
-            builder.AddProfileService<ConfArchProfileService>();
-            
+            //builder.AddProfileService<ConfArchProfileService>();
+
+            services.AddTransient<IUserRepository, UserRepository>();
+
             // Automatic key management in IdentityServer 5+
 
-            services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            services.AddAuthentication();
+                //.AddGoogle(options =>
+                //{
+                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-                    // register your IdentityServer with Google at https://console.developers.google.com
-                    // enable the Google+ API
-                    // set the redirect URI to https://localhost:5001/signin-google
-                    options.ClientId = "686977813024-1pabqkfoar3btu6tsh7puhu3pogcivi0.apps.googleusercontent.com";
-                    options.ClientSecret = "VutGrq8bRdIlB4X13vxiWWwj";
-                });
+                //    // register your IdentityServer with Google at https://console.developers.google.com
+                //    // enable the Google+ API
+                //    // set the redirect URI to https://localhost:5001/signin-google
+                //    options.ClientId = "686977813024-1pabqkfoar3btu6tsh7puhu3pogcivi0.apps.googleusercontent.com";
+                //    options.ClientSecret = "VutGrq8bRdIlB4X13vxiWWwj";
+                //});
         }
 
         public void Configure(IApplicationBuilder app)

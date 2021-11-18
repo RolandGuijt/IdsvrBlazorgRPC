@@ -13,6 +13,10 @@
         @if (Model.EnableLocalLogin)
         {
             <div class="col-sm-6">
+                @if (!string.IsNullOrEmpty(Model.Logo))
+                {
+                    <img src="/@Model.Logo" />
+                }
                 <div class="card">
                     <div class="card-header">
                         <h2>Local Account</h2>

@@ -63,11 +63,13 @@ namespace IdentityServerHost.Quickstart.UI
             // build a model so we know what to show on the login page
             var vm = await BuildLoginViewModelAsync(returnUrl);
 
-            if (vm.IsExternalLoginOnly)
-            {
-                // we only have one option for logging in and it's an external provider
-                return RedirectToAction("Challenge", "External", new { scheme = vm.ExternalLoginScheme, returnUrl });
-            }
+            //if (tenant == "blue")
+            //    vm.Logo = "blue.png";
+
+            //if (tenant=="blue")
+            //{
+            //    return RedirectToAction("Challenge", "External", new { scheme = "Google", returnUrl });
+            //}
 
             return View(vm);
         }
@@ -348,8 +350,8 @@ namespace IdentityServerHost.Quickstart.UI
                 var idp = User.FindFirst(JwtClaimTypes.IdentityProvider)?.Value;
                 if (idp != null && idp != IdentityServerConstants.LocalIdentityProvider)
                 {
-                    var providerSupportsSignout = await HttpContext.GetSchemeSupportsSignOutAsync(idp);
-                    if (providerSupportsSignout)
+                    //var providerSupportsSignout = await HttpContext.GetSchemeSupportsSignOutAsync(idp);
+                    if (true)
                     {
                         if (vm.LogoutId == null)
                         {
