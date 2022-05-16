@@ -13,7 +13,8 @@ namespace Part2_TokenService
             new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.Profile(),
+                new IdentityResource("company", new[] { "employeeno", "departmentid" })
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -68,11 +69,13 @@ namespace Part2_TokenService
                     {
                         "openid",
                         "profile",
-                        "confArchApi.basicAccess"
+                        "confArchApi.basicAccess",
+                        "company"
                     },
                     
                     AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true
+                    RequirePkce = true,
+                    AlwaysIncludeUserClaimsInIdToken  = true,
                 },
             };
     }
