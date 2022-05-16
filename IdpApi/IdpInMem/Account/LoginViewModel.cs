@@ -10,6 +10,7 @@ namespace IdentityServerHost.Quickstart.UI
 {
     public class LoginViewModel : LoginInputModel
     {
+        public string Tenant { get; set; }
         public bool AllowRememberLogin { get; set; } = true;
         public bool EnableLocalLogin { get; set; } = true;
 

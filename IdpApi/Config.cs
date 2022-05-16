@@ -52,7 +52,7 @@ namespace Part2_TokenService
                 new Client
                 {
                     ClientId = "confarchweb",
-                    ClientName = "ConfArch MVC Client",
+                    ClientName = "ConfArch Blazor Client",
                     RequireConsent = true,
                    
 

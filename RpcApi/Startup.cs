@@ -23,11 +23,8 @@ namespace RpcApi
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                                // base-address of your identityserver
-                                options.Authority = "https://localhost:5001";
-
-                                // if you are using API resources, you can specify the name here
-                                options.Audience = "confArchApi";
+                    options.Authority = "https://localhost:5001";
+                    options.Audience = "confArchApi";
                 });
             services.AddAuthorization(o => o.AddPolicy("Basic", p => p.RequireClaim(JwtClaimTypes.Scope, "confArchApi.basicAccess")));
         }
@@ -46,8 +43,6 @@ namespace RpcApi
 
             app.UseEndpoints(endpoints =>
             {
-                // Communication with gRPC endpoints must be made through a gRPC client.
-                // To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909
                 endpoints.MapGrpcService<ConferenceService>();
                 endpoints.MapGrpcService<ProposalService>();
             });

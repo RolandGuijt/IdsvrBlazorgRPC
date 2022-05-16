@@ -85,3 +85,19 @@
         }
     </div>
 </div>
+@section logo {
+    @if (Model.Tenant == "blue")
+    {
+        <a href="~/" class="navbar-brand">
+            <img src="~/blue.jpg" width="100px" class="icon-banner">
+            The Blue Company
+        </a>
+    }
+    else
+    {
+        <a href="~/" class="navbar-brand">
+            <img src="~/icon.png" width="100px" class="icon-banner">
+            IdentityServer
+        </a>
+    }
+}

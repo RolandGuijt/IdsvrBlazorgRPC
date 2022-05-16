@@ -3,7 +3,6 @@
 
 
 using Duende.IdentityServer;
-using IdentityProvider.IdpInMem;
 using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,39 +27,24 @@ namespace Part2_TokenService
         {
             services.AddControllersWithViews();
 
-            var builder = services.AddIdentityServer(options =>
-            {
-                options.Events.RaiseErrorEvents = true;
-                options.Events.RaiseInformationEvents = true;
-                options.Events.RaiseFailureEvents = true;
-                options.Events.RaiseSuccessEvents = true;
-
-                // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
-                options.EmitStaticAudienceClaim = true;
-                
-            })
+            var builder = services.AddIdentityServer()
                 .AddTestUsers(TestUsers.Users);
 
-            // in-memory, code config
             builder.AddInMemoryIdentityResources(Config.IdentityResources);
             builder.AddInMemoryApiScopes(Config.ApiScopes);
             builder.AddInMemoryApiResources(Config.ApiResources);
             builder.AddInMemoryClients(Config.Clients);
-            builder.AddProfileService<ConfArchProfileService>();
-            
-            // Automatic key management in IdentityServer 5+
 
-            services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            // Automatic key management in IdentityServer 5+. Default rotation: 90 days
 
-                    // register your IdentityServer with Google at https://console.developers.google.com
-                    // enable the Google+ API
-                    // set the redirect URI to https://localhost:5001/signin-google
-                    options.ClientId = "686977813024-1pabqkfoar3btu6tsh7puhu3pogcivi0.apps.googleusercontent.com";
-                    options.ClientSecret = "VutGrq8bRdIlB4X13vxiWWwj";
-                });
+            services.AddAuthentication();
+                //.AddGoogle(options =>
+                //{
+                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+                //    options.ClientId = "686977813024-1pabqkfoar3btu6tsh7puhu3pogcivi0.apps.googleusercontent.com";
+                //    options.ClientSecret = "VutGrq8bRdIlB4X13vxiWWwj";
+                //});
         }
 
         public void Configure(IApplicationBuilder app)
