@@ -3,6 +3,7 @@
 
 
 using Duende.IdentityServer;
+using IdentityProvider;
 using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,25 +27,27 @@ namespace Part2_TokenService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             var builder = services.AddIdentityServer()
-                .AddTestUsers(TestUsers.Users);
+                .AddTestUsers(TestUsers.Users)
+                .AddProfileService<ProfileService>();
 
             builder.AddInMemoryIdentityResources(Config.IdentityResources);
             builder.AddInMemoryApiScopes(Config.ApiScopes);
             builder.AddInMemoryApiResources(Config.ApiResources);
             builder.AddInMemoryClients(Config.Clients);
 
-            // Automatic key management in IdentityServer 5+. Default rotation: 90 days
+            // Automatic key management. Default rotation: 90 days
 
-            services.AddAuthentication();
-                //.AddGoogle(options =>
-                //{
-                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-                //    options.ClientId = "686977813024-1pabqkfoar3btu6tsh7puhu3pogcivi0.apps.googleusercontent.com";
-                //    options.ClientSecret = "VutGrq8bRdIlB4X13vxiWWwj";
-                //});
+                    options.ClientId = "686977813024-1pabqkfoar3btu6tsh7puhu3pogcivi0.apps.googleusercontent.com";
+                    options.ClientSecret = "VutGrq8bRdIlB4X13vxiWWwj";
+                });
         }
 
         public void Configure(IApplicationBuilder app)

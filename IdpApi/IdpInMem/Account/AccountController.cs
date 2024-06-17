@@ -48,10 +48,11 @@ namespace IdentityServerHost.Quickstart.UI
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)
         {
-            //var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+            var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+            var values = context.AcrValues;
 
             var vm = await BuildLoginViewModelAsync(returnUrl);
-            //vm.Tenant = context.Tenant;
+            vm.Tenant = context.Tenant;
 
             //if (context.Tenant == "blue")
             //{
@@ -80,7 +81,7 @@ namespace IdentityServerHost.Quickstart.UI
                         props = new AuthenticationProperties
                         {
                             IsPersistent = true,
-                            ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
+                            ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration),
                         };
                     };
 

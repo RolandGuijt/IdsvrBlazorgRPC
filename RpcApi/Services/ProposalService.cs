@@ -5,7 +5,6 @@ using RpcApi.Repositories;
 
 namespace RpcApi.Services
 {
-    [Authorize]
     public class ProposalService: Proposals.ProposalsBase
     {
         private readonly IProposalRepo repo;

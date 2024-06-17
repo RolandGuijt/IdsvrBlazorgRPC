@@ -14,7 +14,7 @@ namespace Part2_TokenService
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                new IdentityResource("company", new[] { "employeeno", "departmentid" })
+                new IdentityResource("company", "Company (employeeno, departmentid)", new[] { "employeeno", "departmentid" })
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
